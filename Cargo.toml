@@ -1,5 +1,5 @@
 [package]
-name = "parameteradder"
+name = "parametereditor"
 version = "0.1.0"
 authors = ["michal <misko.urban12@gmail.com>"]
 edition = "2018"

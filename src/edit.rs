@@ -6,6 +6,12 @@ use std::io;
 use std::io::Write;
 use termion::color;
 
+// TODO
+// Add option to delete parameters
+// Rename files
+// Make it look and feel nicer
+// Add a README.md
+
 fn flush() {
     io::stdout().flush().expect("Error flushing");
 }
@@ -21,7 +27,7 @@ fn convert_strings_to_big_string(content: Vec<String>) -> String {
 
 fn write_file(lines: Vec<String>) {
     let big_string = convert_strings_to_big_string(lines);
-    if let Ok(file) = File::create("fake_grub") {
+    if let Ok(file) = File::create("/etc/default/grub") {
         let mut buffer = BufWriter::new(file);
         buffer
             .write_all(big_string.as_bytes())
@@ -44,7 +50,7 @@ fn print_parameters(input_vec: Vec<&str>) {
     flush();
 }
 
-pub fn edit_parameters(input_vec: Vec<&str>, br: BufReader<File>) {
+pub fn add_parameters(input_vec: Vec<&str>, br: BufReader<File>) {
     let mut lines: Vec<String> = Vec::new();
     let mut error = true;
     for eresult in br.lines().into_iter() {
