@@ -14,13 +14,12 @@ fn convert_strings_to_big_string(content: Vec<String>) -> String {
 
 pub fn write_file(lines: Vec<String>) {
     let big_string = convert_strings_to_big_string(lines);
-    if let Ok(file) = File::create("/etc/default/grub") {
+    if let Ok(file) = File::create("fake_grub") {
         let mut buffer = BufWriter::new(file);
         buffer
             .write_all(big_string.as_bytes())
             .expect("Error occured while writing to a file.");
         buffer.flush().expect("Error while flushing.");
-        println!("{}Successfully made changes.", color::Fg(color::Green));
     } else {
         println!("{}Error occured while creating the file.", color::Fg(color::Red));
     }

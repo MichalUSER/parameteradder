@@ -15,7 +15,7 @@ use std::fs::File;
 //}
 
 pub fn load() -> Option<BufReader<File>> {
-    if let Ok(f) = File::open("/etc/default/grub") {
+    if let Ok(f) = File::open("fake_grub") {
         Some(BufReader::new(f))
     } else {
         None

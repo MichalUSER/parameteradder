@@ -1,9 +1,11 @@
-mod edit;
+mod add;
 mod loader;
+mod write;
+mod remove;
 
-use edit::add_parameters;
 use loader::load;
 
+use std::env;
 use std::io;
 use std::io::BufRead;
 use std::io::Write;
@@ -13,7 +15,7 @@ fn flush() {
     io::stdout().flush().expect("Error flushing");
 }
 
-fn get_input(text: &str) -> String {
+pub fn get_input(text: &str) -> String {
     print!("{}", text);
     flush();
     let mut input = String::new();
@@ -23,14 +25,17 @@ fn get_input(text: &str) -> String {
 
 fn main() {
     if let Some(br) = load() {
-        let input = get_input("Enter grub paramater you want to add: ");
-        let input_vec: Vec<&str> = input.split(' ').collect();
-        if input.len() > 0 {
-            add_parameters(input_vec, br);
+        let args: Vec<String> = env::args().collect();
+        if args.len() < 2 {
+            println!("{}Incorrect program parameter", color::Fg(color::Red));
         } else {
-            println!("{}Error adding grub parameter", color::Fg(color::Red));
+            match args[1].as_str() {
+                "add" => add::start(br),
+                "remove" => remove::start(br),
+                _ => println!("{}Incorrect program parameter", color::Fg(color::Red))
+            }
         }
     } else {
-        println!("Error: grub file not found at /etc/default/grub");
+        println!("{}Error: grub file not found at /etc/default/grub", color::Fg(color::Red));
     }
 }

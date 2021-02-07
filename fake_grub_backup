@@ -2,7 +2,6 @@ GRUB_DEFAULT=saved
 GRUB_TIMEOUT=1
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT_backup="apparmor=1 security=apparmor udev.log_priority=3"
 GRUB_CMDLINE_LINUX_DEFAULT="apparmor=1 security=apparmor udev.log_priority=3"
 GRUB_CMDLINE_LINUX=""
 
