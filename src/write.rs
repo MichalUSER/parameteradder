@@ -21,6 +21,9 @@ pub fn write_file(lines: Vec<String>) {
             .expect("Error occured while writing to a file.");
         buffer.flush().expect("Error while flushing.");
     } else {
-        println!("{}Error occured while creating the file.", color::Fg(color::Red));
+        println!(
+            "{}Error occured while creating the file.",
+            color::Fg(color::Red)
+        );
     }
 }

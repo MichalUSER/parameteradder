@@ -1,7 +1,7 @@
 mod add;
 mod loader;
-mod write;
 mod remove;
+mod write;
 
 use loader::load;
 
@@ -32,10 +32,13 @@ fn main() {
             match args[1].as_str() {
                 "add" => add::start(br),
                 "remove" => remove::start(br),
-                _ => println!("{}Incorrect program parameter", color::Fg(color::Red))
+                _ => println!("{}Incorrect program parameter", color::Fg(color::Red)),
             }
         }
     } else {
-        println!("{}Error: grub file not found at /etc/default/grub", color::Fg(color::Red));
+        println!(
+            "{}Error: grub file not found at /etc/default/grub",
+            color::Fg(color::Red)
+        );
     }
 }

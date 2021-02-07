@@ -1,17 +1,17 @@
-use std::io::BufReader;
 use std::fs::File;
+use std::io::BufReader;
 
 // check if path exists
 //fn path_exists(path: &str) -> bool {
-    //fs::metadata(path).is_ok()
+//fs::metadata(path).is_ok()
 //}
 
 //pub fn load() -> Option<String> {
-    //if path_exists("/etc/default/grub") {
-        //Some("exists".to_string())
-    //} else {
-        //None
-    //}
+//if path_exists("/etc/default/grub") {
+//Some("exists".to_string())
+//} else {
+//None
+//}
 //}
 
 pub fn load() -> Option<BufReader<File>> {

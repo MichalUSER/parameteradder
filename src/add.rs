@@ -1,12 +1,12 @@
 use std::fs::File;
+use std::io;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::io;
 use std::io::Write;
 use termion::color;
 
-use crate::write::write_file;
 use crate::get_input;
+use crate::write::write_file;
 
 // TODO
 // Refactor code
@@ -30,13 +30,13 @@ fn print_parameters(input_vec: Vec<&str>) {
 }
 
 pub fn start(br: BufReader<File>) {
-        let input = get_input("Enter grub paramater you want to add: ");
-        let input_vec: Vec<&str> = input.split(' ').collect();
-        if input.len() > 0 {
-            add_parameters(input_vec, br);
-        } else {
-            println!("{}Error adding grub parameter", color::Fg(color::Red));
-        }
+    let input = get_input("Enter grub paramater you want to add: ");
+    let input_vec: Vec<&str> = input.split(' ').collect();
+    if input.len() > 0 {
+        add_parameters(input_vec, br);
+    } else {
+        println!("{}Error adding grub parameter", color::Fg(color::Red));
+    }
 }
 
 fn add_parameters(input_vec: Vec<&str>, br: BufReader<File>) {
