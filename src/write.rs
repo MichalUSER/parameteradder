@@ -1,7 +1,7 @@
 use std::fs::File;
-use std::io::BufWriter;
-use std::io::Write;
-use termion::color;
+use std::io::{BufWriter, Write};
+
+use crate::print_error;
 
 fn convert_strings_to_big_string(content: Vec<String>) -> String {
     let mut big_string = String::new();
@@ -21,9 +21,6 @@ pub fn write_file(lines: Vec<String>) {
             .expect("Error occured while writing to a file.");
         buffer.flush().expect("Error while flushing.");
     } else {
-        println!(
-            "{}Error occured while creating the file.",
-            color::Fg(color::Red)
-        );
+        print_error("Error occured while creating the file.");
     }
 }

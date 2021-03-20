@@ -1,11 +1,8 @@
 use std::fs::File;
-use std::io::BufRead;
-use std::io::BufReader;
-//use std::io;
-//use std::io::Write;
+use std::io::{BufRead, BufReader};
 use termion::color;
 
-use crate::get_input;
+use crate::{get_input, print_error, print_success};
 use crate::write::write_file;
 
 fn print_parameters(params: &Vec<&str>) {
@@ -24,7 +21,7 @@ fn print_parameters(params: &Vec<&str>) {
 
 fn ask_user(params: &Vec<&str>) -> Option<Vec<Option<usize>>> {
     print_parameters(params);
-    let i = get_input("Which ones do you want to delete? ");
+    let i = get_input("Which parameters do you want to delete? ");
     let max = params.len() - 1;
     let split: Vec<&str> = i.split(' ').collect();
     let mut error = false;
@@ -103,11 +100,8 @@ pub fn start(br: BufReader<File>) {
     }
     write_file(lines);
     if error {
-        println!("{}Error removing grub parameters", color::Fg(color::Red));
+        print_error("Error removing grub parameters");
     } else {
-        println!(
-            "{}Successfully removed grub parameters",
-            color::Fg(color::Green)
-        );
+        print_success("Successfully removed grub parameters");
     }
 }

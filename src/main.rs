@@ -15,6 +15,22 @@ fn flush() {
     io::stdout().flush().expect("Error flushing");
 }
 
+pub fn print_error(text: &str) {
+    println!("{}{}{}",
+        color::Fg(color::Red),
+        text,
+        color::Fg(color::Reset)
+    );
+}
+
+pub fn print_success(text: &str) {
+    println!("{}{}{}",
+        color::Fg(color::Green),
+        text,
+        color::Fg(color::Reset)
+    );
+}
+
 pub fn get_input(text: &str) -> String {
     print!("{}", text);
     flush();
@@ -27,18 +43,15 @@ fn main() {
     if let Some(br) = load() {
         let args: Vec<String> = env::args().collect();
         if args.len() < 2 {
-            println!("{}Incorrect program parameter", color::Fg(color::Red));
+            print_error("Incorrect program parameter");
         } else {
             match args[1].as_str() {
                 "add" => add::start(br),
                 "remove" => remove::start(br),
-                _ => println!("{}Incorrect program parameter", color::Fg(color::Red)),
+                _ => print_error("Incorrect program parameter"),
             }
         }
     } else {
-        println!(
-            "{}Error: grub file not found at /etc/default/grub",
-            color::Fg(color::Red)
-        );
+        print_error("Error: grub file not found at /etc/default/grub");
     }
 }

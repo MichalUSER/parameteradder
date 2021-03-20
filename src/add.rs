@@ -1,21 +1,9 @@
 use std::fs::File;
-use std::io;
-use std::io::BufRead;
-use std::io::BufReader;
-use std::io::Write;
+use std::io::{BufRead, BufReader};
 use termion::color;
 
-use crate::get_input;
+use crate::{get_input, flush, print_error};
 use crate::write::write_file;
-
-// TODO
-// Refactor code
-// Make it look and feel nicer
-// Add a README.md
-
-fn flush() {
-    io::stdout().flush().expect("Error flushing");
-}
 
 fn print_parameters(input_vec: Vec<&str>) {
     let input_vec_size = input_vec.len() - 1 as usize;
@@ -26,7 +14,6 @@ fn print_parameters(input_vec: Vec<&str>) {
             print!("{}\n", e);
         }
     }
-    flush();
 }
 
 pub fn start(br: BufReader<File>) {
@@ -35,7 +22,7 @@ pub fn start(br: BufReader<File>) {
     if input.len() > 0 {
         add_parameters(input_vec, br);
     } else {
-        println!("{}Error adding grub parameter", color::Fg(color::Red));
+        print_error("Error adding grub parameter");
     }
 }
 
@@ -62,9 +49,11 @@ fn add_parameters(input_vec: Vec<&str>, br: BufReader<File>) {
     }
     write_file(lines);
     if error {
-        println!("{}Error adding grub parameters", color::Fg(color::Red));
+        print_error("Error adding grub parameters");
     } else {
         print!("{}Added grub parameters ", color::Fg(color::Green));
         print_parameters(input_vec);
+        print!("{}", color::Fg(color::Reset));
+        flush();
     }
 }
